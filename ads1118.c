@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include <wiringPi.h>
 #include "SPIdev.h"
 
@@ -108,4 +109,14 @@ int16_t readADC(int channel,int gpio_cs)
 #endif
 	
 	return data;
+}
+
+
+
+int main(void)
+{
+	startSPI();
+	readADC(0, 12);
+
+	return 0;
 }
