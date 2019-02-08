@@ -60,7 +60,7 @@ int16_t readADC(int channel,int gpio_cs)
 #endif
 
 	// set the config register.
-	data = ADS1118_CONFIG_REGISTER_SS_SINGLE   |
+	data = ADS1118_CONFIG_REGISTER_SS_SINGLE       |
 		ADS1118_CONFIG_REGISTER_PGA_6_144      |
 		ADS1118_CONFIG_REGISTER_MODE_SINGLE    |
 		ADS1118_CONFIG_REGISTER_DR_128_SPS     |
