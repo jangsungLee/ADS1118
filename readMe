@@ -1,5 +1,5 @@
 this library is designed on Raspberry Pi.
-but i designed on linux as a whole, maybe the others can be used.
+but i designed the overall structure was based on linux as a whole, maybe the others can be used.
 
 the "ads1118.h" is header and main.c is example.
 
