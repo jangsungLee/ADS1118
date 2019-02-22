@@ -5,3 +5,7 @@ the "ads1118.h" is header and main.c is example.
 
 "SPIdev.h" is just similar to "I2Cdev.h" and i thought someone need this.
 So i made and upload.
+
+-----------------warning-------------
+i found in my code, there are some problem.
+so i am fixing now. do not use this until this warning is removed.
