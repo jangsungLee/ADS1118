@@ -14,7 +14,13 @@
 
 // ==============================================SPI Fields=================================================================================================
 static const char *device = "/dev/spidev0.0";
-static uint8_t _spi_mode;//=0;
+static uint8_t _spi_mode;// You need to set this correctly. if you not, your slave deivce do not response correct.
+/* mode   CPOL(Clock Ploarity)    CPHA(Clock Phase)
+   0 :           0                     0
+   1 :           0                     1
+   2 :           1                     0
+   3 :           1                     1
+*/
 static uint8_t _spi_bits = 8;
 static uint32_t _spi_speed = 1000000;// 1MHz(I designed for the sensor of 'ads1118'. - page.18)
 static uint16_t _spi_delay = 0;
