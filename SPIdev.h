@@ -11,8 +11,8 @@
 #include <linux/spi/spidev.h>  
 
 static const char *device = "/dev/spidev0.0";
-static uint8_t _spi_mode=1;//=0;
-/* mode   CPOL(Clock Ploarity)    CPHA(Clock Phase)   
+static uint8_t _spi_mode=1;// You need to set this correctly. if you not, your slave deivce do not response correct.
+/* mode   CPOL(Clock Ploarity)    CPHA(Clock Phase)
    0 :           0                     0
    1 :           0                     1
    2 :           1                     0
