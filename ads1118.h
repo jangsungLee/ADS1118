@@ -4,6 +4,7 @@
 #include <stdio.h>  
 #include <stdlib.h>  
 #include <stdint.h>  
+#include <string.h>
 #include <unistd.h>  
 #include <fcntl.h>  
 #include <linux/types.h>  
@@ -14,7 +15,7 @@
 
 // ==============================================SPI Fields=================================================================================================
 static const char *device = "/dev/spidev0.0";
-static uint8_t _spi_mode;// You need to set this correctly. if you not, your slave deivce do not response correct.
+static uint8_t _spi_mode=1;// You need to set this correctly. if you not, your slave deivce do not response correct.
 /* mode   CPOL(Clock Ploarity)    CPHA(Clock Phase)
    0 :           0                     0
    1 :           0                     1
@@ -194,6 +195,18 @@ int16_t readADC(int channel, int gpio_cs)
 	case 3:
 		data |= ADS1118_CONFIG_REGISTER_MUX_SINGLE_3;
 		break;
+	case 4:
+		data |= ADS1118_CONFIG_REGISTER_MUX_DIFF_0_1;
+		break;
+	case 5:
+		data |= ADS1118_CONFIG_REGISTER_MUX_DIFF_0_3;
+		break;
+	case 6:
+		data |= ADS1118_CONFIG_REGISTER_MUX_DIFF_1_3;
+		break;
+	case 7:
+		data |= ADS1118_CONFIG_REGISTER_MUX_DIFF_2_3;
+		break;
 	default:
 		fprintf(stderr, "Invalid such a channel number.\n");
 		return -1;
@@ -205,22 +218,27 @@ int16_t readADC(int channel, int gpio_cs)
 #else
 	gpioWrite(gpio_cs, 0);
 #endif
-	memcpy(tx_buffer, &data, 2);
+	tx_buffer[0] = (data & 0xff00) >> 8, tx_buffer[1] = data & 0xff;
 	transfer(tx_buffer, rx_buffer, 2);
-	memcpy(&data, rx_buffer, 2);
+	data=(rx_buffer[0] << 8) | rx_buffer[1];
 
-	// ready to read afterfore
+	// set to ready for a later use.
 #ifdef __WIRING_PI_H__
 	digitalWrite(gpio_cs, HIGH);
 #else
 	gpioWrite(gpio_cs, 1);
 #endif
 
-	if (data != 0)
-		data -= 12009; // offset
-	delay(30);
-
 	return data;
+}
+
+float CalVoltage(uint16_t adc_data)
+{
+	if (adc_data & 0x8000)
+		return (adc_data & 0x7fff) * -0.0001875;
+	else
+		return adc_data * 0.0001875;
 }
 //==========================================================================================================================================================================
 #endif /*_ADS1118_H_*/
+
