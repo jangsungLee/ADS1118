@@ -27,6 +27,19 @@ static uint32_t _spi_speed = 1000000;// 1MHz(I designed for the sensor of 'ads11
 static uint16_t _spi_delay = 0;
 static int _spi_fd;
 
+void setSPImode(uint8_t cpol, uint8_t cpha)
+{
+	if(cpol == 0 || cpol == 1)
+	{
+		if(cpha == 0 || cpha == 1)
+			_spi_mode=2*cpol + cpha;
+	}
+	else
+	{
+		fprintf(stderr,"There may be error. the value of cpol and cpha must be 0 or 1");
+		exit(1);
+	}
+}
 
 void startSPI(void)
 {
