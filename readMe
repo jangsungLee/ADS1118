@@ -26,7 +26,7 @@ Note : this is made for my project, so i do not have the plan to add the functio
 1)initialize.
  1. wiringPiSetup(); -> this is for chip selection.
   2. startSPI();
-  3. pinMode( __CS__GPIO__NUMBER___(like "gpio.25"), OUTPUT)
+  3. pinMode( __CS__GPIO__NUMBER___(like "25" of gpio), OUTPUT)
 2)read
                                 __mode__                       description of the MODE
                                    0                            SINGLE_0 (+:0, -:gnd)
