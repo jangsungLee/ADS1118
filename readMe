@@ -6,6 +6,38 @@ the "ads1118.h" is header and main.c is example.
 "SPIdev.h" is just similar to "I2Cdev.h" and i thought someone need this.
 So i made and upload.
 
------------------warning-------------
-i found in my code, there are some problem.
-so i am fixing now. do not use this until this warning is removed.
+Note : this is made for my project, so i do not have the plan to add the function of reading temperature or complete this library.
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+                                            hadrware shema
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+      Raspberry Pi                                             <->                                             ADS1118
+       5v/3.3v                                                                                                   VIN
+        MOSI                                                                                                     DIN
+        MISO                                                                                                     DOUT
+        SCLK                                                                                                     SCK
+        GPIO.25(BCM: 26,wPi: 25) <- selective choice                                                             CS
+        GND                                                                                                      GND
+===========================================================================================================================================
+                                            software order(function order
+===========================================================================================================================================
+1)initialize.
+ 1. wiringPiSetup(); -> this is for chip selection.
+  2. startSPI();
+  3. pinMode( __CS__GPIO__NUMBER___(like "gpio.25"), OUTPUT)
+2)read
+                                __mode__                       description of the MODE
+                                   0                            SINGLE_0 (+:0, -:gnd)
+                                   1                            SINGLE_1 (+:1, -:gnd)
+                                   2                            SINGLE_2 (+:2, -:gnd)
+                                   3                            SINGLE_3 (+:3, -:gnd)
+                                   4                            DIFFERENTIAL_0_1 (+:0, -:1)
+                                   5                            DIFFERENTIAL_0_3 (+:0, -:3)
+                                   6                            DIFFERENTIAL_1_2 (+:1, -:2)
+                                   7                            DIFFERENTIAL_2_3 (+:2, -:3)
+                                   
+readADC( __mode__, __CS__GPIO__NUMBER___(like "gpio.25" and this must be same with the number of the gpio used at pinMode)                                 
+3)finish
+EndSPI();
