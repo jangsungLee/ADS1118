@@ -6,6 +6,8 @@ the "ads1118.h" is header and main.c is example.
 "SPIdev.h" is just similar to "I2Cdev.h" and i thought someone need this.
 So i made and upload.
 
+must be compiled in root .
+
 Note : this is made for my project, so i do not have the plan to add the function of reading temperature or complete this library.
 
 
